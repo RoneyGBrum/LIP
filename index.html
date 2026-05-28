@@ -1,0 +1,1482 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#11203A" />
+<title>LIP — Licença para tratar de Interesse Particular · MGI</title>
+<meta name="description" content="Os principais números da Licença para tratar de Interesse Particular (LIP) — Ministério da Gestão e da Inovação em Serviços Públicos." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2311203A'/%3E%3Ctext x='32' y='45' font-family='Times New Roman,serif' font-size='38' font-weight='700' fill='%23B8924A' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   LIP · Apresentação em rolagem (scrollytelling) — MGI
+   Tipografia: Arial / Calibri (corpo e números) · Times New Roman (títulos)
+   ============================================================ */
+:root{
+  --ink:        #18202F;
+  --ink-2:      #36404F;
+  --ink-3:      #6C7686;
+  --ink-4:      #9AA3B2;
+  --paper:      #FBFAF6;
+  --paper-2:    #F2EFE7;
+  --paper-3:    #ECE7DA;
+  --card:       #FFFFFF;
+  --line:       #E2DCCD;
+  --line-2:     #EDE8DB;
+
+  --navy:       #16294D;
+  --navy-2:     #11203A;
+  --navy-deep:  #0B162B;
+  --blue:       #2B5FA8;
+  --blue-2:     #1E4378;
+  --brick:      #B0452B;
+  --brick-2:    #8F3520;
+  --coral:      #CF6244;
+  --gold:       #B8924A;
+  --gold-2:     #9C7836;
+  --teal:       #2E6F72;
+
+  /* faixas etárias */
+  --age1:#74B07F; --age2:#4F97C6; --age3:#E29A4E; --age4:#9AA3B2; --age5:#E0BE4C; --age6:#3A5577;
+
+  --sans: "Calibri", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --serif:"Times New Roman", Times, Georgia, serif;
+  --mono: "Calibri", Arial, sans-serif;
+
+  --maxw: 1180px;
+  --ease: cubic-bezier(.22,1,.36,1);
+  --ease-soft: cubic-bezier(.4,0,.2,1);
+  --shadow-1: 0 1px 2px rgba(20,23,31,.05), 0 8px 28px rgba(20,23,31,.06);
+  --shadow-2: 0 24px 60px rgba(11,22,43,.16);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:'tnum';
+  line-height:1.5;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+::selection{background:rgba(184,146,74,.28)}
+
+/* ---- número tabular ---- */
+.num{font-variant-numeric:tabular-nums;font-feature-settings:'tnum';font-family:var(--sans)}
+
+/* ============================================================
+   Barra de progresso + navegação lateral
+   ============================================================ */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;background:transparent;z-index:90}
+.progress .fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#E2C786);transition:width .12s linear}
+
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,4vw,56px);
+  font-family:var(--sans);
+  pointer-events:none;
+  transition:background .4s var(--ease), box-shadow .4s var(--ease), padding .4s var(--ease);
+}
+.topbar.solid{background:rgba(251,250,246,.86);backdrop-filter:saturate(140%) blur(10px);box-shadow:0 1px 0 var(--line);padding-top:11px;padding-bottom:11px}
+.topbar .brand{display:flex;align-items:center;gap:11px;letter-spacing:.02em;color:var(--ink-2);pointer-events:auto}
+.topbar .brand .seal{
+  width:30px;height:30px;border-radius:7px;display:grid;place-items:center;flex:none;
+  background:linear-gradient(135deg,var(--navy),var(--navy-deep));color:var(--gold);
+  font-family:var(--serif);font-weight:700;font-size:18px;line-height:1;
+}
+.topbar .brand b{font-weight:700;font-size:15px;color:var(--ink)}
+.topbar .brand span{font-size:12.5px;color:var(--ink-3)}
+.topbar .tag{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);pointer-events:auto}
+
+.sidenav{
+  position:fixed;right:max(16px,2.2vw);top:50%;transform:translateY(-50%);
+  z-index:70;display:flex;flex-direction:column;gap:13px;align-items:flex-end;
+}
+.sidenav a{
+  display:flex;align-items:center;gap:9px;justify-content:flex-end;
+  text-decoration:none;color:var(--ink-4);
+  font-size:11px;letter-spacing:.04em;
+}
+.sidenav a .lbl{
+  opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s,color .3s;
+  white-space:nowrap;color:var(--ink-3);font-family:var(--sans);
+  background:rgba(251,250,246,.9);padding:2px 8px;border-radius:20px;
+}
+.sidenav a .tick{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink-4);transition:all .3s var(--ease);flex:none}
+.sidenav a:hover .lbl{opacity:1;transform:translateX(0)}
+.sidenav a:hover .tick{border-color:var(--gold)}
+.sidenav a.active .tick{background:var(--gold);border-color:var(--gold);transform:scale(1.25)}
+.sidenav a.active .lbl{opacity:1;transform:translateX(0);color:var(--ink)}
+@media (max-width:980px){.sidenav{display:none}}
+
+/* ============================================================
+   Estrutura de seção
+   ============================================================ */
+.section{padding:clamp(72px,11vh,150px) clamp(20px,5vw,40px);position:relative}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.wrap-narrow{max-width:760px;margin:0 auto}
+
+.kicker{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--brick);
+  font-weight:700;margin-bottom:20px;
+}
+.kicker .bar{width:34px;height:1.5px;background:var(--brick);opacity:.6}
+.kicker.gold{color:var(--gold-2)} .kicker.gold .bar{background:var(--gold-2)}
+.kicker.blue{color:var(--blue-2)} .kicker.blue .bar{background:var(--blue-2)}
+
+.h-sec{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(30px,5vw,54px);line-height:1.04;letter-spacing:-.012em;color:var(--ink);
+  margin:0 0 18px;
+}
+.h-sec .lite{color:var(--ink-3);font-weight:400;font-style:italic}
+.lead{font-size:clamp(16px,2vw,19.5px);line-height:1.6;color:var(--ink-2);max-width:62ch;margin:0}
+.lead b{color:var(--brick);font-weight:700}
+.lead .em{color:var(--blue-2);font-weight:700}
+
+.sec-head{margin-bottom:clamp(34px,5vh,64px)}
+
+/* divisor fino */
+.rule{height:1px;background:var(--line);width:100%;border:0;margin:0}
+
+/* ---- reveal on scroll ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+.reveal.d4{transition-delay:.32s}.reveal.d5{transition-delay:.40s}.reveal.d6{transition-delay:.48s}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  color:#F3EFE4;overflow:hidden;
+  background:
+    radial-gradient(1100px 600px at 16% 6%, rgba(184,146,74,.16), transparent 55%),
+    radial-gradient(1000px 700px at 92% 96%, rgba(43,95,168,.24), transparent 55%),
+    linear-gradient(170deg,#13243F 0%,#0B162B 100%);
+  padding:120px clamp(20px,5vw,40px) 90px;
+}
+.hero .grid-bg{
+  position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(184,146,74,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(184,146,74,.07) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 72%);
+          mask-image:radial-gradient(ellipse at 70% 40%,#000 10%,transparent 72%);
+}
+.hero .inner{position:relative;max-width:var(--maxw);margin:0 auto;width:100%;display:grid;grid-template-columns:1.25fr .75fr;gap:5vw;align-items:center}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;color:var(--gold);font-size:13px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;margin-bottom:30px}
+.hero-eyebrow .bar{width:54px;height:1.5px;background:var(--gold);opacity:.75}
+.hero h1{
+  font-family:var(--serif);font-weight:700;
+  font-size:clamp(42px,7.4vw,92px);line-height:.98;letter-spacing:-.02em;color:#F6F1E4;margin:0;
+}
+.hero h1 .ital{font-style:italic;font-weight:400;color:var(--gold)}
+.hero h1 .lip{display:block;font-size:.42em;letter-spacing:.42em;color:#AEB8CB;font-weight:400;margin-top:18px;font-family:var(--sans)}
+.hero p.tagline{margin:34px 0 0;max-width:46ch;font-size:clamp(16px,2vw,20px);line-height:1.55;color:#C6CDDC}
+.hero .sig{margin-top:46px;display:flex;align-items:center;gap:13px;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:#8C97AC}
+.hero .sig .pulse{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(184,146,74,.6);animation:pulse 2.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,146,74,.5)}70%{box-shadow:0 0 0 16px rgba(184,146,74,0)}100%{box-shadow:0 0 0 0 rgba(184,146,74,0)}}
+
+.seal-mark{position:relative;justify-self:center;width:min(40vh,360px);aspect-ratio:1;display:grid;place-items:center}
+.seal-mark .ring{position:absolute;border:1px solid rgba(184,146,74,.32);border-radius:50%;animation:spin 60s linear infinite}
+.seal-mark .ring.a{inset:0}
+.seal-mark .ring.b{inset:9%;border-color:rgba(184,146,74,.2);animation-duration:90s;animation-direction:reverse}
+.seal-mark .ring.c{inset:19%;border-color:rgba(184,146,74,.13)}
+.seal-mark .ring.d{inset:29%;border-color:rgba(184,146,74,.08)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.seal-mark .core{position:absolute;inset:37%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#D9B469,#7A5C28);box-shadow:0 0 70px rgba(184,146,74,.4),inset 0 -10px 30px rgba(0,0,0,.4)}
+.seal-mark .glyph{position:relative;font-family:var(--serif);font-weight:700;font-size:min(13vh,118px);color:#11203A;line-height:1}
+.seal-mark .tick{position:absolute;top:50%;left:50%;width:1.5px;height:6%;background:rgba(184,146,74,.7);transform-origin:center 360%}
+
+.scroll-cue{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#8C97AC;font-size:11px;letter-spacing:.24em;text-transform:uppercase;z-index:2}
+.scroll-cue .mouse{width:22px;height:34px;border:1.5px solid rgba(184,146,74,.55);border-radius:12px;position:relative}
+.scroll-cue .mouse::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:var(--gold);transform:translateX(-50%);animation:wheel 1.8s var(--ease) infinite}
+@keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,10px)}}
+@media (max-width:760px){.hero .inner{grid-template-columns:1fr;gap:46px}.seal-mark{order:-1;width:min(34vh,240px)}}
+
+/* ============================================================
+   Pull-quote (definição)
+   ============================================================ */
+.quote-sec{background:var(--paper-2)}
+.pull{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.4vw,46px);line-height:1.22;letter-spacing:-.01em;color:var(--ink);text-align:center}
+.pull b{font-weight:700}
+.pull .gold{color:var(--gold-2);font-style:italic}
+.pull .mk{font-family:var(--serif);color:var(--gold);font-size:1.4em;line-height:0;vertical-align:-.25em}
+.quote-meta{text-align:center;margin-top:30px;font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+
+/* ============================================================
+   Principais pontos — cards
+   ============================================================ */
+.points-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,22px)}
+@media (max-width:900px){.points-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.points-grid{grid-template-columns:1fr}}
+.point{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:26px 24px;box-shadow:var(--shadow-1);
+  display:flex;flex-direction:column;gap:11px;position:relative;overflow:hidden;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+}
+.point:hover{transform:translateY(-4px);box-shadow:var(--shadow-2);border-color:#D6CDB8}
+.point .idx{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brick);font-weight:700}
+.point .ttl{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.4vw,25px);line-height:1.12;color:var(--ink)}
+.point .ttl .hl{color:var(--brick)}
+.point .desc{font-size:15px;line-height:1.55;color:var(--ink-2)}
+.point .desc b{color:var(--brick);font-weight:700}
+.point .desc .em{color:var(--blue-2);font-weight:700}
+.point.feat{background:linear-gradient(155deg,#16294D,#0F1D35);border-color:transparent;color:#EFEADE}
+.point.feat .ttl{color:#F4EFE2}.point.feat .desc{color:#C6CDDC}.point.feat .idx{color:var(--gold)}.point.feat .desc b{color:var(--gold)}
+.point.feat::after{content:"";position:absolute;right:18px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px rgba(184,146,74,.7)}
+
+/* ============================================================
+   Marcador de capítulo (dark)
+   ============================================================ */
+.chapter{
+  position:relative;color:#F3EFE4;overflow:hidden;
+  background:linear-gradient(125deg,#11203A 0%,#16294D 58%,#0F1D35 100%);
+  padding:clamp(96px,16vh,200px) clamp(20px,5vw,40px);
+}
+.chapter .grid-bg{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(184,146,74,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(184,146,74,.06) 1px,transparent 1px);background-size:60px 60px;-webkit-mask-image:radial-gradient(ellipse at 72% 50%,#000 20%,transparent 76%);mask-image:radial-gradient(ellipse at 72% 50%,#000 20%,transparent 76%)}
+.chapter .inner{position:relative;max-width:var(--maxw);margin:0 auto}
+.chapter .lbl{display:flex;align-items:center;gap:14px;font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.chapter .lbl .bar{width:60px;height:1px;background:var(--gold);opacity:.6}
+.chapter h2{font-family:var(--serif);font-weight:700;font-size:clamp(54px,12vw,150px);line-height:.92;letter-spacing:-.02em;color:#F6F1E4;margin:0}
+.chapter h2 .accent{color:var(--gold);font-style:italic;font-weight:400}
+.chapter .desc{margin-top:30px;font-size:clamp(16px,2vw,21px);line-height:1.5;color:#C6CDDC;max-width:54ch}
+.chapter .desc b{color:var(--gold);font-weight:700}
+.chapter .chev{position:absolute;right:clamp(20px,5vw,60px);bottom:clamp(30px,6vh,60px);display:flex;gap:9px;opacity:.8}
+.chapter .chev .c{width:0;height:0;border-left:20px solid var(--gold);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.chapter .chev .c.f1{border-left-color:rgba(184,146,74,.22)}.chapter .chev .c.f2{border-left-color:rgba(184,146,74,.5)}
+
+/* ============================================================
+   Cards / painéis genéricos de dados
+   ============================================================ */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:clamp(20px,2.6vw,30px)}
+.panel .panel-title{font-family:var(--sans);font-weight:700;font-size:15px;color:var(--ink);text-align:center;margin-bottom:14px;letter-spacing:.01em}
+
+.statbox{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:22px 22px}
+.statbox .k{font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.statbox .v{font-family:var(--serif);font-weight:700;line-height:1;color:var(--ink);margin-top:8px;font-size:clamp(34px,4.4vw,52px)}
+.statbox .v small{font-family:var(--sans);font-style:italic;font-weight:400;font-size:.36em;color:var(--ink-3)}
+.statbox .v.brick{color:var(--brick)}.statbox .v.blue{color:var(--blue-2)}.statbox .v.coral{color:var(--coral)}
+.statbox .desc{margin-top:9px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.statbox .desc b{color:var(--brick);font-weight:700}
+.statbox.dark{background:linear-gradient(150deg,#16294D,#0F1D35);border-color:transparent}
+.statbox.dark .k{color:#9AA6BC}.statbox.dark .v{color:var(--gold)}.statbox.dark .desc{color:#C6CDDC}.statbox.dark .desc b{color:#F4EFE2}
+
+/* ============================================================
+   Gráfico de linha (SVG)
+   ============================================================ */
+.chart-layout{display:grid;grid-template-columns:1fr 290px;gap:clamp(18px,2.4vw,30px);align-items:stretch}
+@media (max-width:880px){.chart-layout{grid-template-columns:1fr}}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:clamp(16px,2vw,26px)}
+.chart-side{display:flex;flex-direction:column;gap:16px}
+.legend-line{display:flex;align-items:center;gap:9px;font-weight:700;font-size:15px;color:var(--blue-2)}
+.legend-line .dot{width:13px;height:13px;border-radius:50%;background:var(--blue);flex:none}
+svg .gridline{stroke:#EBE6D8;stroke-width:1}
+svg .axis-txt{font-family:var(--sans);font-size:12px;fill:var(--ink-3)}
+svg .line-path{fill:none;stroke:var(--blue);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+svg .line-fill{fill:url(#blueGrad);opacity:0;transition:opacity 1s ease 1s}
+svg .line-fill.in{opacity:1}
+svg .pt{fill:#fff;stroke:var(--blue);stroke-width:2.4;opacity:0;transition:opacity .4s ease}
+svg .pt.in{opacity:1}
+svg .pt-lbl{font-family:var(--sans);font-size:11px;font-weight:700;fill:var(--ink-2);opacity:0;transition:opacity .4s ease}
+svg .pt-lbl.in{opacity:1}
+svg .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 2s var(--ease)}
+svg .draw.in{stroke-dashoffset:0}
+
+/* ============================================================
+   Gráfico de área empilhada + tabela
+   ============================================================ */
+.age-layout{display:grid;grid-template-columns:300px 1fr;gap:clamp(18px,2.4vw,30px);align-items:start;margin-bottom:26px}
+@media (max-width:880px){.age-layout{grid-template-columns:1fr}}
+.area-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:clamp(16px,2vw,24px)}
+svg .area{opacity:0;transition:opacity .9s ease,transform .9s var(--ease);transform:translateY(10px)}
+svg .area.in{opacity:1;transform:none}
+svg .area-lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-3)}
+
+.tbl-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:clamp(14px,1.6vw,20px);overflow-x:auto}
+table.age{width:100%;border-collapse:collapse;min-width:760px}
+table.age th,table.age td{padding:6px 7px;text-align:right;font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink-2);border-bottom:1px solid var(--line-2)}
+table.age th:first-child,table.age td:first-child{text-align:left;color:var(--ink);font-weight:600}
+table.age thead th{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);font-weight:700;border-bottom:1.5px solid var(--line)}
+table.age td.tot{font-weight:700;color:var(--ink);background:#FAF5E9}
+table.age td.hi{color:var(--brick);font-weight:700}
+table.age tr.total-row td{font-weight:700;color:var(--ink);background:#FAF5E9;border-top:1.5px solid var(--line)}
+table.age .sw{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+
+/* ============================================================
+   Barras verticais (sexo, cor, tempo, natureza, agrupamento)
+   ============================================================ */
+.bars-2{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(18px,2.4vw,30px)}
+@media (max-width:880px){.bars-2{grid-template-columns:1fr}}
+.vbar-area{display:flex;align-items:flex-end;justify-content:center;gap:clamp(14px,2vw,34px);height:300px;padding:0 6px}
+.vbar{display:flex;flex-direction:column;align-items:center;gap:10px;justify-content:flex-end;height:100%;flex:1;max-width:120px}
+.vbar .val{font-weight:700;font-size:clamp(15px,1.8vw,20px);color:var(--ink);font-variant-numeric:tabular-nums}
+.vbar .col{width:100%;max-width:88px;border-radius:7px 7px 0 0;background:var(--blue);transform:scaleY(0);transform-origin:bottom;transition:transform 1s var(--ease);position:relative}
+.in-view .vbar .col{transform:scaleY(1)}
+.vbar .cap{font-size:12.5px;color:var(--ink-3);text-align:center;line-height:1.25;min-height:2.6em}
+.vbar .cap b{color:var(--ink-2);font-weight:600}
+.vbar .col .inlbl{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(180deg);writing-mode:vertical-rl;color:#fff;font-weight:700;font-size:13px;letter-spacing:.02em;white-space:nowrap}
+/* stagger */
+.in-view .vbar:nth-child(1) .col{transition-delay:.05s}
+.in-view .vbar:nth-child(2) .col{transition-delay:.13s}
+.in-view .vbar:nth-child(3) .col{transition-delay:.21s}
+.in-view .vbar:nth-child(4) .col{transition-delay:.29s}
+.in-view .vbar:nth-child(5) .col{transition-delay:.37s}
+.in-view .vbar:nth-child(6) .col{transition-delay:.45s}
+.in-view .vbar:nth-child(7) .col{transition-delay:.53s}
+.in-view .vbar:nth-child(8) .col{transition-delay:.61s}
+.in-view .vbar:nth-child(9) .col{transition-delay:.69s}
+
+.tempo-grid{display:grid;grid-template-columns:1.1fr 1.1fr .8fr;gap:clamp(16px,2vw,24px)}
+@media (max-width:980px){.tempo-grid{grid-template-columns:1fr 1fr}.tempo-grid .tempo-stats{grid-column:1/-1}}
+@media (max-width:620px){.tempo-grid{grid-template-columns:1fr}}
+.tempo-stats{display:flex;flex-direction:column;gap:13px}
+.tempo-stats .statbox{flex:1;padding:18px 18px}
+.tempo-stats .statbox .v{font-size:clamp(26px,3vw,34px)}
+
+/* ============================================================
+   Tabela de barras horizontais (órgão, carreira, cargo)
+   ============================================================ */
+.detail-layout{display:grid;grid-template-columns:1fr 280px;gap:clamp(18px,2.4vw,28px);align-items:start}
+@media (max-width:980px){.detail-layout{grid-template-columns:1fr}}
+.hbar-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:clamp(14px,1.8vw,22px);overflow-x:auto}
+.hbar-table{min-width:600px}
+.hbar-head,.hbar-row{display:grid;gap:10px;align-items:center}
+.hbar-head{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding-bottom:9px;border-bottom:1.5px solid var(--line);margin-bottom:4px}
+.hbar-head>div,.hbar-row>div{text-align:right}
+.hbar-head .nm,.hbar-row .nm{text-align:left}
+.hbar-head .barh{text-align:left}
+.hbar-row{padding:7px 0;border-bottom:1px dotted var(--line);font-variant-numeric:tabular-nums}
+.hbar-row:last-child{border-bottom:none}
+.hbar-row .a{color:var(--blue-2);font-weight:700;font-size:14px}
+.hbar-row .nm{font-weight:600;font-size:14px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar-row .barbox{position:relative;height:18px;background:#F3EEE0;border-radius:4px;overflow:hidden}
+.hbar-row .barbox .fill{position:absolute;inset:0 auto 0 0;height:100%;width:var(--w);background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease)}
+.in-view .hbar-row .barbox .fill{transform:scaleX(1)}
+.hbar-card.coral .hbar-row .barbox .fill{background:var(--coral)}
+.hbar-row .b{font-weight:700;color:var(--ink);font-size:14px}
+.hbar-row .e{font-weight:700;color:var(--blue-2);font-size:13.5px}
+.hbar-row .c{color:var(--brick);font-weight:700;font-size:13.5px}
+.hbar-row .d{color:var(--ink-3);font-style:italic;font-size:12.5px}
+/* stagger rows */
+.in-view .hbar-row:nth-child(2) .fill{transition-delay:.03s}
+.in-view .hbar-row:nth-child(3) .fill{transition-delay:.06s}
+.in-view .hbar-row:nth-child(4) .fill{transition-delay:.09s}
+.in-view .hbar-row:nth-child(5) .fill{transition-delay:.12s}
+.in-view .hbar-row:nth-child(6) .fill{transition-delay:.15s}
+.in-view .hbar-row:nth-child(7) .fill{transition-delay:.18s}
+.in-view .hbar-row:nth-child(8) .fill{transition-delay:.21s}
+.in-view .hbar-row:nth-child(9) .fill{transition-delay:.24s}
+.in-view .hbar-row:nth-child(10) .fill{transition-delay:.27s}
+.in-view .hbar-row:nth-child(11) .fill{transition-delay:.30s}
+.in-view .hbar-row:nth-child(12) .fill{transition-delay:.33s}
+.in-view .hbar-row:nth-child(13) .fill{transition-delay:.36s}
+.in-view .hbar-row:nth-child(14) .fill{transition-delay:.39s}
+.in-view .hbar-row:nth-child(15) .fill{transition-delay:.42s}
+.in-view .hbar-row:nth-child(16) .fill{transition-delay:.45s}
+.in-view .hbar-row:nth-child(17) .fill{transition-delay:.48s}
+.in-view .hbar-row:nth-child(18) .fill{transition-delay:.51s}
+.in-view .hbar-row:nth-child(19) .fill{transition-delay:.54s}
+.in-view .hbar-row:nth-child(20) .fill{transition-delay:.57s}
+.in-view .hbar-row:nth-child(21) .fill{transition-delay:.60s}
+.in-view .hbar-row:nth-child(22) .fill{transition-delay:.63s}
+.in-view .hbar-row:nth-child(23) .fill{transition-delay:.66s}
+.in-view .hbar-row:nth-child(24) .fill{transition-delay:.69s}
+
+.legend-keys{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px;margin-top:14px;background:#FAF6EC;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--ink-2)}
+@media (max-width:620px){.legend-keys{grid-template-columns:1fr}}
+.legend-keys .lk{display:flex;align-items:center;gap:9px}
+.legend-keys .lk .key{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:5px;font-weight:700;font-size:12px;flex:none;color:#fff}
+.legend-keys .lk.A .key{background:var(--blue)}.legend-keys .lk.B .key{background:var(--ink)}
+.legend-keys .lk.C .key{background:var(--brick)}.legend-keys .lk.D .key{background:#E4DCC6;color:var(--ink-3)}
+.legend-keys .lk.E .key{background:var(--blue-2);color:var(--gold)}
+
+.detail-side{display:flex;flex-direction:column;gap:14px}
+
+/* rosca */
+.donut-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:20px 18px;text-align:center}
+.donut-card .panel-title{margin-bottom:14px}
+.donut{position:relative;width:160px;height:160px;margin:0 auto}
+.donut svg{transform:rotate(-90deg)}
+.donut .seg{fill:none;stroke-width:18;stroke-linecap:butt;stroke-dasharray:var(--c) 1000;stroke-dashoffset:var(--c);transition:stroke-dashoffset 1.4s var(--ease)}
+.in-view .donut .seg{stroke-dashoffset:0}
+.in-view .donut .seg.s2{transition-delay:.3s}.in-view .donut .seg.s3{transition-delay:.55s}
+.donut .ctr{position:absolute;inset:0;display:grid;place-items:center;line-height:1.1}
+.donut .ctr .pv{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--ink)}
+.donut .ctr .pk{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.donut-legend{margin-top:16px;display:flex;flex-direction:column;gap:7px;text-align:left}
+.donut-legend .dl{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--ink-2)}
+.donut-legend .dl .nm{display:flex;align-items:center;gap:9px}
+.donut-legend .dl .sw{width:11px;height:11px;border-radius:3px}
+.donut-legend .dl .pc{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.note-band{margin-top:6px;background:#FAF6EC;border-left:3px solid var(--gold);border-radius:6px;padding:14px 16px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.note-band b{color:var(--blue-2);font-weight:700}
+
+/* ============================================================
+   Proposta (minuta)
+   ============================================================ */
+.proposta{background:var(--paper-2)}
+.proposta-grid{display:grid;grid-template-columns:300px 1fr;gap:clamp(22px,3vw,46px);align-items:stretch}
+@media (max-width:860px){.proposta-grid{grid-template-columns:1fr}}
+.proposta-side{background:linear-gradient(160deg,#16294D,#0F1D35);color:#F3EFE4;border-radius:16px;padding:38px 30px;display:flex;flex-direction:column;justify-content:space-between;gap:26px;box-shadow:var(--shadow-2)}
+.proposta-side .stamp{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.proposta-side .tt{font-family:var(--serif);font-weight:700;font-size:clamp(36px, 6vw, 60px);line-height:.96;color:#F6F1E4}
+.proposta-side .tt small{display:block;font-style:italic;font-weight:400;font-size:.42em;color:var(--gold);margin-top:8px}
+.proposta-side .foot{font-size:13px;line-height:1.6;color:#9AA6BC}
+.proposta-body{display:flex;flex-direction:column;gap:16px;font-size:15.5px;line-height:1.6;color:var(--ink)}
+.proposta-body .p{margin:0}
+.proposta-body .p b.head{color:var(--blue-2);font-weight:700}
+.art{margin:0;background:var(--card);border-left:3px solid var(--blue);border-radius:8px;padding:16px 18px;box-shadow:var(--shadow-1)}
+.art b{color:var(--blue-2);font-weight:700}
+.art .six{color:var(--brick);font-weight:700;font-style:italic}
+.art.transition{border-left-color:var(--brick);background:#FCEFEA;color:var(--brick-2)}
+.art.transition b{color:var(--brick-2)}
+.art.final{border-left-color:var(--gold);color:var(--ink-2)}
+.art.final b{color:var(--gold-2)}
+
+/* ============================================================
+   Normas vigentes
+   ============================================================ */
+.normas-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,3vw,38px);align-items:stretch}
+@media (max-width:860px){.normas-grid{grid-template-columns:1fr}}
+.norm-list{display:flex;flex-direction:column;gap:16px}
+.norm{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:20px 22px;display:flex;gap:18px;align-items:flex-start}
+.norm .mark{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:700;font-size:17px;font-family:var(--sans)}
+.norm.gold .mark{background:var(--gold);color:var(--navy-2)}
+.norm.brick .mark{background:var(--brick);color:#fff}
+.norm .nm{font-family:var(--serif);font-weight:700;font-size:20px;line-height:1.15;color:var(--ink)}
+.norm .nd{margin-top:7px;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.norm .nd b{color:var(--brick);font-weight:700}.norm .nd .em{color:var(--blue-2);font-weight:700}
+.norm-feature{position:relative;background:linear-gradient(150deg,#16294D,#0F1D35);color:#F3EFE4;border-radius:16px;padding:34px 32px;display:flex;flex-direction:column;gap:18px;justify-content:space-between;box-shadow:var(--shadow-2);overflow:hidden}
+.norm-feature::before{content:"";position:absolute;right:-12%;top:-12%;width:60%;height:60%;background:radial-gradient(circle,rgba(184,146,74,.22),transparent 62%)}
+.norm-feature .k{position:relative;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.norm-feature .tt{position:relative;font-family:var(--serif);font-weight:700;font-size:clamp(24px,3.4vw,32px);line-height:1.1;color:#F6F1E4}
+.norm-feature .tt b{color:var(--gold)}
+.norm-feature .nd{position:relative;font-size:15px;line-height:1.6;color:#C6CDDC}
+.norm-feature .nd b{color:var(--gold);font-weight:700}
+.norm-feature .ft{position:relative;display:flex;align-items:center;gap:12px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.norm-feature .ft .bar{width:42px;height:1px;background:var(--gold);opacity:.6}
+
+/* ============================================================
+   Encerramento
+   ============================================================ */
+.thanks{position:relative;color:#F3EFE4;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 30%,#16294D 0%,#0F1D35 55%,#0B162B 100%);
+  padding:clamp(110px,18vh,210px) clamp(20px,5vw,40px)}
+.thanks .lbl{font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+.thanks h2{font-family:var(--serif);font-weight:700;font-size:clamp(64px,16vw,180px);line-height:.92;color:#F6F1E4;margin:0;letter-spacing:-.02em}
+.thanks h2 .ital{font-style:italic;color:var(--gold)}
+.thanks .sub{margin-top:26px;font-size:clamp(16px,2vw,21px);color:#C6CDDC}
+.thanks .contact{margin-top:34px;display:inline-flex;align-items:center;gap:14px;font-size:15px;color:#F3EFE4;padding:13px 26px;border:1px solid rgba(184,146,74,.4);border-radius:99px;background:rgba(255,255,255,.03)}
+.thanks .contact .at{color:var(--gold)}
+
+/* ============================================================
+   Fontes
+   ============================================================ */
+.fontes{background:var(--paper-2)}
+.fontes-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,30px);align-items:start}
+@media (max-width:780px){.fontes-grid{grid-template-columns:1fr}}
+.fonte-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-1);padding:26px 26px}
+.fonte-card .k{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--brick);font-weight:700;margin-bottom:10px}
+.fonte-card .nm{font-family:var(--serif);font-weight:700;font-size:24px;color:var(--ink);line-height:1.1;margin-bottom:12px}
+.fonte-card .dd{font-size:14.5px;line-height:1.55;color:var(--ink-2);margin-bottom:12px}
+.fonte-card .dd b{color:var(--ink);font-weight:700}
+.fonte-card ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:5px 16px}
+.fonte-card ul li{font-size:13px;color:var(--ink-2);padding-left:14px;position:relative;font-variant-numeric:tabular-nums}
+.fonte-card ul li::before{content:"·";position:absolute;left:0;color:var(--gold);font-weight:700}
+.fonte-card .meta{margin-top:14px;font-size:12.5px;color:var(--ink-3);letter-spacing:.02em}
+.fonte-card .meta b{color:var(--gold-2)}
+.fonte-card .url{display:block;margin-top:8px;font-size:12.5px;color:var(--blue-2);word-break:break-all}
+.fonte-card.dark{background:linear-gradient(150deg,#16294D,#0F1D35);border-color:transparent;color:#F3EFE4}
+.fonte-card.dark .k{color:var(--gold)}.fonte-card.dark .nm{color:#F6F1E4}.fonte-card.dark .dd{color:#C6CDDC}.fonte-card.dark .dd b{color:#F4EFE2}
+.fonte-card.dark ul li{color:#C6CDDC}.fonte-card.dark .meta{color:#9AA6BC}.fonte-card.dark .meta b{color:var(--gold)}
+
+footer.foot{background:var(--navy-deep);color:#7E8AA0;text-align:center;padding:34px 20px;font-size:12.5px;letter-spacing:.06em}
+footer.foot .gold{color:var(--gold)}
+
+/* nota de fonte sob gráficos */
+.src-note{margin-top:14px;font-size:12.5px;color:var(--ink-3);line-height:1.5;font-style:italic}
+.src-note b{color:var(--ink-2);font-style:normal}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+
+<header class="topbar" id="topbar">
+  <div class="brand">
+    <span class="seal">L</span>
+    <span><b>LIP</b><br><span>Licença para tratar de Interesse Particular</span></span>
+  </div>
+  <div class="tag">MGI · SGP · DEPRO · CGMOP</div>
+</header>
+
+<nav class="sidenav" id="sidenav">
+  <a href="#hero"><span class="lbl">Abertura</span><span class="tick"></span></a>
+  <a href="#pontos"><span class="lbl">Principais pontos</span><span class="tick"></span></a>
+  <a href="#historico"><span class="lbl">Histórico</span><span class="tick"></span></a>
+  <a href="#serie"><span class="lbl">Série histórica</span><span class="tick"></span></a>
+  <a href="#idade"><span class="lbl">Faixa etária</span><span class="tick"></span></a>
+  <a href="#perfil"><span class="lbl">Sexo &amp; Cor</span><span class="tick"></span></a>
+  <a href="#tempo"><span class="lbl">Tempo</span><span class="tick"></span></a>
+  <a href="#atuais"><span class="lbl">Dados atuais</span><span class="tick"></span></a>
+  <a href="#orgaos"><span class="lbl">Órgãos</span><span class="tick"></span></a>
+  <a href="#orgao-detalhe"><span class="lbl">LIP por órgão</span><span class="tick"></span></a>
+  <a href="#carreira"><span class="lbl">Carreiras</span><span class="tick"></span></a>
+  <a href="#cargo"><span class="lbl">Cargos</span><span class="tick"></span></a>
+  <a href="#proposta"><span class="lbl">Proposta</span><span class="tick"></span></a>
+  <a href="#normas"><span class="lbl">Normas</span><span class="tick"></span></a>
+  <a href="#fontes"><span class="lbl">Fontes</span><span class="tick"></span></a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="grid-bg"></div>
+  <div class="inner">
+    <div>
+      <div class="hero-eyebrow"><span class="bar"></span><span>MGI · SGP · DEPRO · CGMOP</span></div>
+      <h1>Licença para tratar de <span class="ital">Interesse Particular</span><span class="lip">— L I P —</span></h1>
+      <p class="tagline">Ato administrativo de natureza estritamente discricionária, a critério da Administração Pública Federal.</p>
+      <div class="sig"><span class="pulse"></span><span>DGIMP / CGMOP / DEPRO / SGP / MGI</span></div>
+    </div>
+    <div class="seal-mark" aria-hidden="true">
+      <div class="ring a"></div><div class="ring b"></div><div class="ring c"></div><div class="ring d"></div>
+      <div class="core"></div>
+      <span class="glyph">L</span>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="mouse"></div><span>role para começar</span></div>
+</section>
+
+<!-- ===================== DEFINIÇÃO (pull-quote) ===================== -->
+<section class="section quote-sec" id="definicao">
+  <div class="wrap-narrow">
+    <p class="pull reveal"><span class="mk">“</span>Ato administrativo de natureza <b>estritamente discricionária</b>, concedido a <span class="gold">critério da Administração</span>, considerando o interesse público, a incolumidade da ordem administrativa e a regular continuidade do serviço público.<span class="mk">”</span></p>
+    <div class="quote-meta reveal d1">Conceito · LIP</div>
+  </div>
+</section>
+
+<!-- ===================== PRINCIPAIS PONTOS ===================== -->
+<section class="section" id="pontos">
+  <div class="wrap">
+    <div class="sec-head wrap-narrow" style="margin-left:0">
+      <div class="kicker reveal"><span class="bar"></span>Conceito</div>
+      <h2 class="h-sec reveal d1">Principais pontos <span class="lite">— LIP</span></h2>
+      <p class="lead reveal d2">Natureza, critérios de concessão, prazo, interrupção, restrições e prorrogação.</p>
+    </div>
+    <div class="points-grid">
+      <div class="point feat reveal">
+        <span class="idx">01 · Natureza</span>
+        <div class="ttl">Ato discricionário</div>
+        <p class="desc">Ato administrativo de natureza <b>estritamente discricionária</b>, concedido a <b>critério da Administração</b>.</p>
+      </div>
+      <div class="point reveal d1">
+        <span class="idx">02 · Decisão</span>
+        <div class="ttl">Critérios da concessão</div>
+        <p class="desc">A decisão considera o <span class="em">interesse público</span>, o resguardo da <span class="em">incolumidade da ordem administrativa</span> e a regular <span class="em">continuidade do serviço público</span>.</p>
+      </div>
+      <div class="point reveal d2">
+        <span class="idx">03 · Prazo</span>
+        <div class="ttl">Até <span class="hl">3 anos</span> consecutivos</div>
+        <p class="desc">Para cada licença. A limitação temporal de <b>6 anos</b> foi retirada pela <b>IN nº 75, de 13/10/2022</b>.</p>
+      </div>
+      <div class="point reveal d3">
+        <span class="idx">04 · Interrupção</span>
+        <div class="ttl">Pode ser interrompida</div>
+        <p class="desc">A qualquer momento: <span class="em">a pedido do servidor</span> ou pela <span class="em">Administração</span>, por necessidade do serviço.</p>
+      </div>
+      <div class="point reveal d4">
+        <span class="idx">05 · Restrição</span>
+        <div class="ttl">Estágio probatório</div>
+        <p class="desc"><b>Não é concedida</b> a servidor em estágio probatório.</p>
+      </div>
+      <div class="point reveal d5">
+        <span class="idx">06 · Prorrogação</span>
+        <div class="ttl">Antecedência mínima</div>
+        <p class="desc">Com, no mínimo, <b>2 meses</b> de antecedência — observado o limite máximo de <b>3 anos consecutivos</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO I ===================== -->
+<section class="chapter" id="historico">
+  <div class="grid-bg"></div>
+  <div class="inner">
+    <div class="lbl"><span class="bar"></span>Capítulo I · Série histórica</div>
+    <h2>Histórico<br><span class="accent">2011 — 2026</span></h2>
+    <p class="desc">Quinze anos de série histórica da Licença para tratar de Interesse Particular no âmbito da Administração Pública Federal.</p>
+  </div>
+  <div class="chev"><span class="c f1"></span><span class="c f2"></span><span class="c"></span></div>
+</section>
+
+<!-- ===================== SÉRIE — LINHA ===================== -->
+<section class="section" id="serie">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Histórico</div>
+      <h2 class="h-sec reveal d1">Afastamentos por ano <span class="lite">2011 – 2026</span></h2>
+      <p class="lead reveal d2">Total de novos afastamentos por LIP em cada ano da série histórica.</p>
+    </div>
+    <div class="chart-layout reveal d2">
+      <div class="chart-card">
+        <div class="legend-line" style="margin-bottom:8px"><span class="dot"></span>Número total de afastamentos por ano</div>
+        <div id="lineChart"></div>
+        <p class="src-note"><b>Nota.</b> Valores anuais conforme o total por faixa etária da base (2011–2026).</p>
+      </div>
+      <div class="chart-side">
+        <div class="statbox">
+          <div class="k">Pico em 2022</div>
+          <div class="v blue"><span class="counter" data-target="2021">0</span></div>
+          <div class="desc">novos afastamentos — maior valor da série</div>
+        </div>
+        <div class="statbox">
+          <div class="k">2026 — em curso</div>
+          <div class="v brick"><span class="counter" data-target="495">0</span></div>
+          <div class="desc">novos afastamentos contabilizados até maio</div>
+        </div>
+        <div class="statbox dark">
+          <div class="k">Total da série</div>
+          <div class="v"><span class="counter" data-target="13498">0</span></div>
+          <div class="desc">afastamentos entre 2011 e 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAIXA ETÁRIA ===================== -->
+<section class="section quote-sec" id="idade">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Perfil etário</div>
+      <h2 class="h-sec reveal d1">Afastamentos por <span class="lite">faixa etária</span></h2>
+      <p class="lead reveal d2">Idade considerada no início do afastamento · 2011 – 2026.</p>
+    </div>
+    <div class="age-layout reveal d2">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="statbox">
+          <div class="k">Idade média</div>
+          <div class="v brick"><span class="counter" data-target="41">0</span> <small>anos</small></div>
+        </div>
+        <div class="statbox dark">
+          <div class="k">Acima de 34 anos</div>
+          <div class="v"><span class="counter" data-target="82,63">0</span>%</div>
+          <div class="desc">Infere-se tratarem-se de profissionais com nível pleno/sênior de conhecimento na APF.</div>
+        </div>
+      </div>
+      <div class="area-card">
+        <div class="panel-title" style="text-align:left">Distribuição por faixa etária ao longo dos anos</div>
+        <div id="areaChart"></div>
+      </div>
+    </div>
+    <div class="tbl-card reveal">
+      <table class="age">
+        <thead>
+          <tr>
+            <th>Faixa etária</th>
+            <th>2011</th><th>2012</th><th>2013</th><th>2014</th><th>2015</th><th>2016</th><th>2017</th>
+            <th>2018</th><th>2019</th><th>2020</th><th>2021</th><th>2022</th><th>2023</th>
+            <th>2024</th><th>2025</th><th>2026</th><th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="sw" style="background:var(--age1)"></span>25 menos</td><td>6</td><td>17</td><td>16</td><td>26</td><td>14</td><td>7</td><td>16</td><td>14</td><td>10</td><td>4</td><td>2</td><td>6</td><td>1</td><td>1</td><td>1</td><td>1</td><td class="tot">130</td></tr>
+          <tr><td><span class="sw" style="background:var(--age2)"></span>25–29</td><td>63</td><td>85</td><td>102</td><td>86</td><td>85</td><td>90</td><td>111</td><td>115</td><td>113</td><td>55</td><td>55</td><td>90</td><td>50</td><td>22</td><td>8</td><td>2</td><td class="tot">1.010</td></tr>
+          <tr><td><span class="sw" style="background:var(--age3)"></span>30–34</td><td>80</td><td>127</td><td>187</td><td>186</td><td>235</td><td>254</td><td>254</td><td>318</td><td>359</td><td>226</td><td>227</td><td>359</td><td>261</td><td>132</td><td>74</td><td>30</td><td class="tot">2.818</td></tr>
+          <tr><td><span class="sw" style="background:var(--age4)"></span>35–39</td><td>103</td><td>85</td><td>145</td><td>167</td><td>193</td><td>228</td><td>280</td><td>388</td><td>478</td><td>318</td><td>292</td><td>533</td><td>495</td><td>347</td><td>270</td><td>97</td><td class="hi">3.688</td></tr>
+          <tr><td><span class="sw" style="background:var(--age5)"></span>40–44</td><td>95</td><td>101</td><td>104</td><td>125</td><td>100</td><td>132</td><td>170</td><td>246</td><td>290</td><td>238</td><td>269</td><td>482</td><td>480</td><td>365</td><td>376</td><td>141</td><td class="tot">3.087</td></tr>
+          <tr><td><span class="sw" style="background:var(--age6)"></span>45 ou mais</td><td>380</td><td>320</td><td>272</td><td>267</td><td>278</td><td>262</td><td>306</td><td>337</td><td>442</td><td>304</td><td>323</td><td>553</td><td>605</td><td>502</td><td>517</td><td>224</td><td class="hi">4.379</td></tr>
+          <tr class="total-row"><td>Total</td><td>726</td><td>733</td><td>823</td><td>856</td><td>904</td><td>972</td><td>1.134</td><td>1.413</td><td>1.688</td><td>1.142</td><td>1.163</td><td>2.021</td><td>1.885</td><td>1.365</td><td>1.244</td><td>495</td><td>13.498</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SEXO & COR ===================== -->
+<section class="section" id="perfil">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Perfil</div>
+      <h2 class="h-sec reveal d1">Sexo &amp; Cor/Origem étnica</h2>
+      <p class="lead reveal d2">Distribuição percentual dos afastamentos · 2011 – 2026.</p>
+    </div>
+    <div class="bars-2 reveal d2">
+      <div class="panel obs">
+        <div class="panel-title">% do total de afastamentos por sexo</div>
+        <div class="vbar-area">
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="52,19">0</span>%</span>
+            <div class="col" style="height:92%;background:#18202F"><span class="inlbl">Masculino</span></div>
+            <span class="cap"><b>Masculino</b></span>
+          </div>
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="47,81">0</span>%</span>
+            <div class="col" style="height:84%;background:#C4566E"><span class="inlbl">Feminino</span></div>
+            <span class="cap"><b>Feminino</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="panel obs">
+        <div class="panel-title">% do total de afastamentos por cor/origem étnica</div>
+        <div class="vbar-area">
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="68,83">0</span>%</span>
+            <div class="col" style="height:96%;background:var(--blue)"></div>
+            <span class="cap">Pessoas<br>Brancas</span>
+          </div>
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="27,60">0</span>%</span>
+            <div class="col" style="height:40%;background:var(--blue)"></div>
+            <span class="cap">Pessoas<br>Negras</span>
+          </div>
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="2,08">0</span>%</span>
+            <div class="col" style="height:5%;background:var(--blue)"></div>
+            <span class="cap">Pessoas<br>Amarelas</span>
+          </div>
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="1,31">0</span>%</span>
+            <div class="col" style="height:3.5%;background:var(--blue)"></div>
+            <span class="cap">Sem<br>Informação</span>
+          </div>
+          <div class="vbar">
+            <span class="val"><span class="counter" data-target="0,19">0</span>%</span>
+            <div class="col" style="height:1.5%;background:var(--blue)"></div>
+            <span class="cap">Povos<br>Indígenas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEMPO DE AFASTAMENTO ===================== -->
+<section class="section quote-sec" id="tempo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Duração</div>
+      <h2 class="h-sec reveal d1">Percentual de afastamentos <span class="lite">pelo tempo</span></h2>
+      <p class="lead reveal d2">LIP e prorrogação · 2011 – 2026.</p>
+    </div>
+    <div class="tempo-grid reveal d2">
+      <div class="panel obs">
+        <div class="panel-title">Lic. tratar de interesses particulares — EST</div>
+        <div class="vbar-area" style="height:250px">
+          <div class="vbar"><span class="val"><span class="counter" data-target="57,56">0</span>%</span><div class="col" style="height:96%;background:var(--blue)"></div><span class="cap">Até 01 ano</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="20,77">0</span>%</span><div class="col" style="height:36%;background:var(--blue)"></div><span class="cap">01 a 02 anos</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="36,52">0</span>%</span><div class="col" style="height:63%;background:var(--blue)"></div><span class="cap">02 a 03 anos</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="0,08">0</span>%</span><div class="col" style="height:1.5%;background:var(--blue)"></div><span class="cap">+03 anos</span></div>
+        </div>
+      </div>
+      <div class="panel obs">
+        <div class="panel-title">LIP — prorrogação · EST</div>
+        <div class="vbar-area" style="height:250px">
+          <div class="vbar"><span class="val"><span class="counter" data-target="53,39">0</span>%</span><div class="col" style="height:96%;background:var(--coral)"></div><span class="cap">Até 01 ano</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="11,31">0</span>%</span><div class="col" style="height:22%;background:var(--coral)"></div><span class="cap">01 a 02 anos</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="39,82">0</span>%</span><div class="col" style="height:72%;background:var(--coral)"></div><span class="cap">02 a 03 anos</span></div>
+        </div>
+      </div>
+      <div class="tempo-stats">
+        <div class="statbox">
+          <div class="k">Tempo médio de afastamento</div>
+          <div class="v">1<small> ano </small>5<small> meses </small>20<small> dias</small></div>
+        </div>
+        <div class="statbox">
+          <div class="k">Volume total</div>
+          <div class="v blue"><span class="counter" data-target="19847">0</span></div>
+          <div class="desc">LIPs e <b style="color:var(--coral)"><span class="counter" data-target="559">0</span></b> prorrogações</div>
+        </div>
+        <div class="statbox">
+          <div class="k">Sem prorrogação</div>
+          <div class="v brick"><span class="counter" data-target="97,2">0</span>%</div>
+          <div class="desc">dos afastamentos para LIP</div>
+        </div>
+        <div class="statbox">
+          <div class="k">Servidor com mais ocorrências</div>
+          <div class="v" style="color:var(--brick-2)"><span class="counter" data-target="37">0</span></div>
+          <div class="desc">LIPs registradas para um único servidor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CAPÍTULO II ===================== -->
+<section class="chapter" id="atuais">
+  <div class="grid-bg"></div>
+  <div class="inner">
+    <div class="lbl"><span class="bar"></span>Capítulo II · Fotografia</div>
+    <h2>Dados<br><span class="accent">atuais.</span></h2>
+    <p class="desc">Retrato dos servidores em LIP em <b>maio de 2026</b> — distribuição por órgão, carreira, cargo e natureza jurídica.</p>
+  </div>
+  <div class="chev"><span class="c f1"></span><span class="c f2"></span><span class="c"></span></div>
+</section>
+
+<!-- ===================== QUANTIDADE POR ÓRGÃO ===================== -->
+<section class="section" id="orgaos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Maio 2026 · Órgãos</div>
+      <h2 class="h-sec reveal d1">Órgãos <span class="lite">— agrupamento por quantidade de servidores</span></h2>
+      <p class="lead reveal d2">Distribuição dos órgãos por faixa de servidores afastados.</p>
+    </div>
+    <div class="bars-2 reveal d2" style="grid-template-columns:1.5fr 1fr">
+      <div class="panel obs">
+        <div class="panel-title">Agrupamento — quantidade de servidores por órgão</div>
+        <div class="vbar-area" style="height:280px;gap:clamp(6px,1vw,16px)">
+          <div class="vbar"><span class="val"><span class="counter" data-target="113">0</span></span><div class="col" style="height:96%;background:var(--blue)"></div><span class="cap"><br>1–10</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="36">0</span></span><div class="col" style="height:32%;background:var(--blue)"></div><span class="cap"><br>11–20</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="10">0</span></span><div class="col" style="height:9%;background:var(--blue)"></div><span class="cap"><br>21–30</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="3">0</span></span><div class="col" style="height:3%;background:var(--blue)"></div><span class="cap"><br>31–40</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="4">0</span></span><div class="col" style="height:4%;background:var(--blue)"></div><span class="cap"><br>41–50</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="4">0</span></span><div class="col" style="height:4%;background:var(--blue)"></div><span class="cap"><br>51–60</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="1">0</span></span><div class="col" style="height:1.5%;background:var(--blue)"></div><span class="cap"><br>81–90</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="1">0</span></span><div class="col" style="height:1.5%;background:var(--blue)"></div><span class="cap"><br>91–100</span></div>
+          <div class="vbar"><span class="val"><span class="counter" data-target="1">0</span></span><div class="col" style="height:1.5%;background:var(--blue)"></div><span class="cap"><br>131+</span></div>
+        </div>
+        <div style="text-align:center;font-size:12.5px;color:var(--ink-3);margin-top:6px">Quantidade de servidores afastados</div>
+      </div>
+      <div class="detail-side">
+        <div class="statbox dark">
+          <div class="k">Servidores em LIP — maio 2025</div>
+          <div class="v"><span class="counter" data-target="2162">0</span></div>
+        </div>
+        <div class="statbox">
+          <div class="k">Órgãos / entidades com servidores em LIP</div>
+          <div class="v brick"><span class="counter" data-target="173">0</span></div>
+        </div>
+        <div class="statbox">
+          <div class="k">Concentração</div>
+          <div class="v blue"><span class="counter" data-target="65,3">0</span>%</div>
+          <div class="desc">dos órgãos possuem de <b>1 a 10</b> servidores afastados</div>
+        </div>
+      </div>
+    </div>
+    <div class="panel obs reveal" style="margin-top:22px">
+      <div class="panel-title">% por natureza jurídica dos órgãos</div>
+      <div class="vbar-area" style="height:230px">
+        <div class="vbar"><span class="val"><span class="counter" data-target="50,97">0</span>%</span><div class="col" style="height:96%;background:var(--coral)"></div><span class="cap">Autarquia<br>Federal</span></div>
+        <div class="vbar"><span class="val"><span class="counter" data-target="28,91">0</span>%</span><div class="col" style="height:55%;background:var(--coral)"></div><span class="cap">Adm. Direta<br>Federal</span></div>
+        <div class="vbar"><span class="val"><span class="counter" data-target="15,22">0</span>%</span><div class="col" style="height:29%;background:var(--coral)"></div><span class="cap">Fundação<br>Federal</span></div>
+        <div class="vbar"><span class="val"><span class="counter" data-target="5,00">0</span>%</span><div class="col" style="height:10%;background:var(--coral)"></div><span class="cap">Autarquia<br>Especial</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIP POR ÓRGÃO (top 23) ===================== -->
+<section class="section quote-sec" id="orgao-detalhe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Maio 2026 · Detalhe</div>
+      <h2 class="h-sec reveal d1">Órgãos <span class="lite">— servidores em LIP</span></h2>
+      <p class="lead reveal d2">Top 23 órgãos por volume de servidores afastados.</p>
+    </div>
+    <div class="detail-layout reveal d2">
+      <div>
+        <div class="legend-keys reveal">
+          <div class="lk A"><span class="key">A</span>% de LIP em relação ao total de LIP</div>
+          <div class="lk B"><span class="key">B</span>Servidores em LIP no órgão</div>
+          <div class="lk C"><span class="key">C</span>% de servidores em LIP sobre as vagas ocupadas no órgão</div>
+          <div class="lk D"><span class="key">D</span>Vagas ocupadas no órgão</div>
+        </div>
+        <div class="hbar-card obs">
+          <div class="hbar-table" style="--cols:64px 110px 1fr 52px 60px 64px">
+            <div class="hbar-head" style="grid-template-columns:var(--cols)">
+              <div class="a">A · % LIP</div><div class="nm">Órgão</div><div class="barh">B · servidores em LIP</div><div class="b">B</div><div class="c">C · % vagas</div><div class="d">D · vagas</div>
+            </div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">6,48%</div><div class="nm">MGI</div><div class="barbox"><div class="fill" style="--w:100%"></div></div><div class="b">140</div><div class="c">1,3%</div><div class="d">10.704</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">4,21%</div><div class="nm">MS</div><div class="barbox"><div class="fill" style="--w:65%"></div></div><div class="b">91</div><div class="c">0,3%</div><div class="d">31.072</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">4,12%</div><div class="nm">UFRJ</div><div class="barbox"><div class="fill" style="--w:64%"></div></div><div class="b">89</div><div class="c">0,7%</div><div class="d">12.117</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,78%</div><div class="nm">UFBA</div><div class="barbox"><div class="fill" style="--w:43%"></div></div><div class="b">60</div><div class="c">1,1%</div><div class="d">5.516</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,68%</div><div class="nm">DPRF</div><div class="barbox"><div class="fill" style="--w:41%"></div></div><div class="b">58</div><div class="c">0,4%</div><div class="d">13.172</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,54%</div><div class="nm">UNB</div><div class="barbox"><div class="fill" style="--w:39%"></div></div><div class="b">55</div><div class="c">1,0%</div><div class="d">5.563</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,36%</div><div class="nm">UFF</div><div class="barbox"><div class="fill" style="--w:36%"></div></div><div class="b">51</div><div class="c">0,8%</div><div class="d">6.740</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,17%</div><div class="nm">FIOCRUZ</div><div class="barbox"><div class="fill" style="--w:34%"></div></div><div class="b">47</div><div class="c">1,0%</div><div class="d">4.542</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,08%</div><div class="nm">IFSP</div><div class="barbox"><div class="fill" style="--w:32%"></div></div><div class="b">45</div><div class="c">1,0%</div><div class="d">4.569</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,04%</div><div class="nm">MF</div><div class="barbox"><div class="fill" style="--w:31%"></div></div><div class="b">44</div><div class="c">0,2%</div><div class="d">19.520</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,04%</div><div class="nm">MRE</div><div class="barbox"><div class="fill" style="--w:31%"></div></div><div class="b">44</div><div class="c">1,7%</div><div class="d">2.650</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,85%</div><div class="nm">DPF</div><div class="barbox"><div class="fill" style="--w:29%"></div></div><div class="b">40</div><div class="c">0,3%</div><div class="d">14.083</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,80%</div><div class="nm">UFSC</div><div class="barbox"><div class="fill" style="--w:28%"></div></div><div class="b">39</div><div class="c">0,7%</div><div class="d">5.381</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,71%</div><div class="nm">UFPR</div><div class="barbox"><div class="fill" style="--w:26%"></div></div><div class="b">37</div><div class="c">0,6%</div><div class="d">5.836</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,39%</div><div class="nm">UFPB</div><div class="barbox"><div class="fill" style="--w:21%"></div></div><div class="b">30</div><div class="c">0,5%</div><div class="d">5.874</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,30%</div><div class="nm">UFES</div><div class="barbox"><div class="fill" style="--w:20%"></div></div><div class="b">28</div><div class="c">0,8%</div><div class="d">3.607</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,30%</div><div class="nm">UFGO</div><div class="barbox"><div class="fill" style="--w:20%"></div></div><div class="b">28</div><div class="c">0,7%</div><div class="d">4.234</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,30%</div><div class="nm">UFJF</div><div class="barbox"><div class="fill" style="--w:20%"></div></div><div class="b">28</div><div class="c">0,9%</div><div class="d">3.113</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,25%</div><div class="nm">UFRN</div><div class="barbox"><div class="fill" style="--w:19%"></div></div><div class="b">27</div><div class="c">0,5%</div><div class="d">5.284</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,20%</div><div class="nm">FUFS</div><div class="barbox"><div class="fill" style="--w:18%"></div></div><div class="b">26</div><div class="c">0,9%</div><div class="d">3.044</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,20%</div><div class="nm">MCTI</div><div class="barbox"><div class="fill" style="--w:18%"></div></div><div class="b">26</div><div class="c">0,8%</div><div class="d">3.099</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,11%</div><div class="nm">ANAC</div><div class="barbox"><div class="fill" style="--w:17%"></div></div><div class="b">24</div><div class="c">1,9%</div><div class="d">1.292</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,06%</div><div class="nm">C.AER</div><div class="barbox"><div class="fill" style="--w:16%"></div></div><div class="b">23</div><div class="c">0,9%</div><div class="d">2.584</div></div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="detail-side">
+        <div class="statbox dark">
+          <div class="k">Concentração em ensino</div>
+          <div class="v"><span class="counter" data-target="58,74">0</span>%</div>
+          <div class="desc">das LIPs ocorrem em <b>instituições de ensino</b></div>
+        </div>
+        <div class="statbox">
+          <div class="k">Top órgão</div>
+          <div class="v blue" style="font-size:34px">MGI</div>
+          <div class="desc"><span class="num" style="color:var(--brick);font-weight:700">140</span> servidores · <span class="num" style="font-weight:700">6,48%</span> do total</div>
+        </div>
+        <div class="statbox">
+          <div class="k">Maior % sobre vagas</div>
+          <div class="v coral" style="font-size:34px">ANAC</div>
+          <div class="desc"><span class="num" style="color:var(--brick);font-weight:700">1,9%</span> dos servidores em LIP — maior taxa relativa do recorte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIP POR CARREIRA (top 17) ===================== -->
+<section class="section" id="carreira">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Maio 2026 · Carreiras</div>
+      <h2 class="h-sec reveal d1">Carreiras <span class="lite">— servidores em LIP</span></h2>
+      <p class="lead reveal d2">Top 17 carreiras por volume de servidores afastados.</p>
+    </div>
+    <div class="detail-layout reveal d2">
+      <div>
+        <div class="legend-keys reveal">
+          <div class="lk A"><span class="key">A</span>% de LIP em relação ao total de LIP</div>
+          <div class="lk B"><span class="key">B</span>Servidores em LIP na carreira</div>
+          <div class="lk C"><span class="key">C</span>% de servidores em LIP sobre as vagas ocupadas na carreira</div>
+          <div class="lk D"><span class="key">D</span>Vagas ocupadas na carreira</div>
+        </div>
+        <div class="hbar-card obs">
+          <div class="hbar-table" style="--cols:62px minmax(150px,1.3fr) 1fr 46px 58px 64px">
+            <div class="hbar-head" style="grid-template-columns:var(--cols)">
+              <div class="a">A · % LIP</div><div class="nm">Carreira</div><div class="barh">B · servidores em LIP</div><div class="b">B</div><div class="c">C · % vagas</div><div class="d">D · vagas</div>
+            </div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">26,78%</div><div class="nm">Magistério Superior</div><div class="barbox"><div class="fill" style="--w:100%"></div></div><div class="b">579</div><div class="c">0,65%</div><div class="d">88.482</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">17,62%</div><div class="nm">Plano de Cargos TAE-IFE</div><div class="barbox"><div class="fill" style="--w:66%"></div></div><div class="b">381</div><div class="c">0,30%</div><div class="d">125.730</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">12,72%</div><div class="nm">Magist. Ens. Básico, Téc. e Tecnológico</div><div class="barbox"><div class="fill" style="--w:47%"></div></div><div class="b">275</div><div class="c">0,54%</div><div class="d">50.460</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">5,32%</div><div class="nm">Gestão</div><div class="barbox"><div class="fill" style="--w:20%"></div></div><div class="b">115</div><div class="c">2,08%</div><div class="d">5.534</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">4,21%</div><div class="nm">Cargos das Agências Reguladoras</div><div class="barbox"><div class="fill" style="--w:16%"></div></div><div class="b">91</div><div class="c">1,28%</div><div class="d">7.094</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">3,33%</div><div class="nm">Prev. da Saúde e do Trabalho</div><div class="barbox"><div class="fill" style="--w:12%"></div></div><div class="b">72</div><div class="c">0,29%</div><div class="d">24.607</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,50%</div><div class="nm">Policial Rodoviário Federal</div><div class="barbox"><div class="fill" style="--w:9%"></div></div><div class="b">54</div><div class="c">0,42%</div><div class="d">12.828</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,99%</div><div class="nm">PCCTAE — Médico — Diversos</div><div class="barbox"><div class="fill" style="--w:7%"></div></div><div class="b">43</div><div class="c">0,73%</div><div class="d">5.926</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,62%</div><div class="nm">Analista Téc. Poder Exec. Federal</div><div class="barbox"><div class="fill" style="--w:6%"></div></div><div class="b">35</div><div class="c">0,77%</div><div class="d">4.524</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,48%</div><div class="nm">Policial Federal</div><div class="barbox"><div class="fill" style="--w:5%"></div></div><div class="b">32</div><div class="c">0,26%</div><div class="d">12.189</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,39%</div><div class="nm">Especialista em Meio Ambiente</div><div class="barbox"><div class="fill" style="--w:5%"></div></div><div class="b">30</div><div class="c">0,53%</div><div class="d">5.687</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,25%</div><div class="nm">Desenvolvimento Tecnológico</div><div class="barbox"><div class="fill" style="--w:5%"></div></div><div class="b">27</div><div class="c">0,48%</div><div class="d">5.656</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,16%</div><div class="nm">Plano Geral de Cargos do Poder Exec.</div><div class="barbox"><div class="fill" style="--w:4%"></div></div><div class="b">25</div><div class="c">0,26%</div><div class="d">9.687</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,06%</div><div class="nm">Previd., Saúde e Trabalho — Área Médica</div><div class="barbox"><div class="fill" style="--w:4%"></div></div><div class="b">23</div><div class="c">0,90%</div><div class="d">2.564</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,97%</div><div class="nm">Diplomacia</div><div class="barbox"><div class="fill" style="--w:4%"></div></div><div class="b">21</div><div class="c">1,57%</div><div class="d">1.341</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,93%</div><div class="nm">Infraestrutura</div><div class="barbox"><div class="fill" style="--w:3%"></div></div><div class="b">20</div><div class="c">2,11%</div><div class="d">950</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,93%</div><div class="nm">Oficial de Chancelaria</div><div class="barbox"><div class="fill" style="--w:3%"></div></div><div class="b">20</div><div class="c">2,48%</div><div class="d">805</div></div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="detail-side">
+        <div class="statbox dark">
+          <div class="k">Concentração em ensino</div>
+          <div class="v"><span class="counter" data-target="59,1">0</span>%</div>
+          <div class="desc">das LIPs ocorrem em <b>carreiras de ensino</b></div>
+        </div>
+        <div class="statbox">
+          <div class="k">Carreira de maior volume</div>
+          <div class="v blue" style="font-size:26px;line-height:1.1">Magistério Superior</div>
+          <div class="desc"><span class="num" style="color:var(--brick);font-weight:700">579</span> servidores · <span class="num" style="font-weight:700">26,78%</span> do total</div>
+        </div>
+        <div class="statbox">
+          <div class="k">Maior % sobre vagas</div>
+          <div class="v coral" style="font-size:24px;line-height:1.1">Oficial de Chancelaria</div>
+          <div class="desc"><span class="num" style="color:var(--brick);font-weight:700">2,48%</span> dos ocupantes em LIP — maior taxa relativa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIP POR CARGO (top 16 + remuneração) ===================== -->
+<section class="section quote-sec" id="cargo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Maio 2026 · Cargos</div>
+      <h2 class="h-sec reveal d1">Cargos <span class="lite">— servidores em LIP</span></h2>
+      <p class="lead reveal d2">Top 16 cargos, com remuneração média (E).</p>
+    </div>
+    <div class="detail-layout reveal d2">
+      <div>
+        <div class="hbar-card obs">
+          <div class="hbar-table" style="--cols:60px minmax(140px,1.2fr) 1fr 44px 84px 52px 62px">
+            <div class="hbar-head" style="grid-template-columns:var(--cols)">
+              <div class="a">A · % LIP</div><div class="nm">Cargo</div><div class="barh">B · servidores em LIP</div><div class="b">B</div><div class="e">E · remun.</div><div class="c">C · % vagas</div><div class="d">D · vagas</div>
+            </div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">26,78%</div><div class="nm">Professor do Magistério Superior</div><div class="barbox"><div class="fill" style="--w:100%"></div></div><div class="b">579</div><div class="e">R$ 19.435</div><div class="c">0,65%</div><div class="d">88.482</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">12,72%</div><div class="nm">Professor Ens. Básico Téc. Tecnológico</div><div class="barbox"><div class="fill" style="--w:47%"></div></div><div class="b">275</div><div class="e">R$ 19.516</div><div class="c">0,54%</div><div class="d">50.460</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">4,16%</div><div class="nm">Assistente em Administração</div><div class="barbox"><div class="fill" style="--w:15%"></div></div><div class="b">90</div><div class="e">R$ 7.773</div><div class="c">0,26%</div><div class="d">34.163</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">3,70%</div><div class="nm">Agente Administrativo</div><div class="barbox"><div class="fill" style="--w:14%"></div></div><div class="b">80</div><div class="e">R$ 8.022</div><div class="c">0,58%</div><div class="d">13.724</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,50%</div><div class="nm">Policial Rodoviário Federal</div><div class="barbox"><div class="fill" style="--w:9%"></div></div><div class="b">54</div><div class="e">R$ 19.048</div><div class="c">0,42%</div><div class="d">12.828</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">2,31%</div><div class="nm">Esp. Pol. Públ. Gestão Governamental</div><div class="barbox"><div class="fill" style="--w:9%"></div></div><div class="b">50</div><div class="e">R$ 33.283</div><div class="c">4,80%</div><div class="d">1.041</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,85%</div><div class="nm">Médico — PCCTAE</div><div class="barbox"><div class="fill" style="--w:7%"></div></div><div class="b">40</div><div class="e">R$ 21.767</div><div class="c">0,75%</div><div class="d">5.313</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,80%</div><div class="nm">Técnico de Laboratório Área</div><div class="barbox"><div class="fill" style="--w:7%"></div></div><div class="b">39</div><div class="e">R$ 8.297</div><div class="c">0,37%</div><div class="d">10.431</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,62%</div><div class="nm">Analista Técnico Executivo</div><div class="barbox"><div class="fill" style="--w:6%"></div></div><div class="b">35</div><div class="e">R$ 13.607</div><div class="c">0,78%</div><div class="d">4.471</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,39%</div><div class="nm">Auditor Fed. de Finanças e Controle</div><div class="barbox"><div class="fill" style="--w:5%"></div></div><div class="b">30</div><div class="e">R$ 35.761</div><div class="c">1,16%</div><div class="d">2.578</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,20%</div><div class="nm">Analista Ambiental</div><div class="barbox"><div class="fill" style="--w:5%"></div></div><div class="b">26</div><div class="e">R$ 17.817</div><div class="c">0,71%</div><div class="d">3.665</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,11%</div><div class="nm">Aux. em Administração</div><div class="barbox"><div class="fill" style="--w:4%"></div></div><div class="b">24</div><div class="e">R$ 6.983</div><div class="c">0,55%</div><div class="d">4.325</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">1,11%</div><div class="nm">Médico</div><div class="barbox"><div class="fill" style="--w:4%"></div></div><div class="b">24</div><div class="e">R$ 11.758</div><div class="c">0,88%</div><div class="d">2.735</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,93%</div><div class="nm">Analista de Infraestrutura</div><div class="barbox"><div class="fill" style="--w:3%"></div></div><div class="b">20</div><div class="e">R$ 22.222</div><div class="c">2,11%</div><div class="d">950</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,93%</div><div class="nm">Auxiliar de Enfermagem</div><div class="barbox"><div class="fill" style="--w:3%"></div></div><div class="b">20</div><div class="e">R$ 7.055</div><div class="c">0,20%</div><div class="d">9.791</div></div>
+            <div class="hbar-row" style="grid-template-columns:var(--cols)"><div class="a">0,93%</div><div class="nm">Oficial de Chancelaria</div><div class="barbox"><div class="fill" style="--w:3%"></div></div><div class="b">20</div><div class="e">R$ 5.826</div><div class="c">2,48%</div><div class="d">805</div></div>
+          </div>
+        </div>
+        <div class="legend-keys reveal">
+          <div class="lk A"><span class="key">A</span>% de LIP em relação ao total de LIP</div>
+          <div class="lk B"><span class="key">B</span>Servidores em LIP no cargo</div>
+          <div class="lk E"><span class="key">E</span>Média de remuneração do cargo</div>
+          <div class="lk C"><span class="key">C</span>% de servidores em LIP sobre as vagas ocupadas no cargo</div>
+          <div class="lk D"><span class="key">D</span>Vagas ocupadas no cargo</div>
+        </div>
+      </div>
+      <div class="detail-side">
+        <div class="donut-card obs">
+          <div class="panel-title">% de LIP pela escolaridade do cargo</div>
+          <div class="donut">
+            <svg viewBox="0 0 100 100" width="160" height="160">
+              <circle cx="50" cy="50" r="40" fill="none" stroke="#EFE7D2" stroke-width="18"/>
+              <circle class="seg s1" cx="50" cy="50" r="40" stroke="#18202F" style="--c:190.9"/>
+              <circle class="seg s2" cx="50" cy="50" r="40" stroke="#CF6244" style="--c:59.2" transform="rotate(273.4 50 50)"/>
+              <circle class="seg s3" cx="50" cy="50" r="40" stroke="#B8924A" style="--c:1.3" transform="rotate(358.2 50 50)"/>
+            </svg>
+            
+          </div>
+          <div class="donut-legend">
+            <div class="dl"><span class="nm"><span class="sw" style="background:#18202F"></span>NS — Nível Superior</span><span class="pc"><span class="counter" data-target="75,94">0</span>%</span></div>
+            <div class="dl"><span class="nm"><span class="sw" style="background:#CF6244"></span>NI — Nível Intermediário</span><span class="pc"><span class="counter" data-target="23,55">0</span>%</span></div>
+            <div class="dl"><span class="nm"><span class="sw" style="background:#B8924A"></span>NA - Nível Auxiliar</span><span class="pc"><span class="counter" data-target="0,51">0</span>%</span></div>
+          </div>
+        </div>
+        <div class="note-band">
+          <b>Nota:</b> as universidades podem contratar professores substitutos nos casos de afastamento de LIP <span class="num" style="color:var(--brick);font-weight:700">(Art. 14 do Decreto nº 7.485/2011)</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROPOSTA ===================== -->
+<section class="section proposta" id="proposta">
+  <div class="wrap">
+    <div class="proposta-grid reveal">
+      <div class="proposta-side">
+        <div class="stamp">Proposta · Minuta</div>
+        <div class="tt">Proposta<small>LIP</small></div>
+        <div class="foot">Alteração da Instrução Normativa SGP/SEDGG/ME nº 34, de 2021, com regra de transição.</div>
+      </div>
+      <div class="proposta-body">
+        <p class="p"><b class="head">O SECRETÁRIO DE GESTÃO DE PESSOAS</b> do <b>Ministério da Gestão e da Inovação em Serviços Públicos</b>, no uso das atribuições que lhe conferem os incisos I e IV do art. 29 do Anexo I do Decreto nº 11.437, de 17 de março de 2023, alterado pelo Decreto nº 11.601, de 17 de julho de 2023, e tendo em vista o disposto no art. 91 da Lei nº 8.112, de 11 de dezembro de 1990, resolve:</p>
+        <p class="art"><b>Art. 1º</b> A Instrução Normativa SGP/SEDGG/ME nº 34, de 24 de março de 2021, passa a vigorar com as seguintes alterações:<br><br><b>“Art. 13. ............................................................</b><br><b>§ 6º</b> As licenças não serão concedidas por prazo total superior a <span class="six">seis anos</span> durante a vida funcional do servidor. <b>(NR)”</b></p>
+        <p class="art transition"><b>Art. 2º</b> O disposto nesta Instrução Normativa <b>não se aplica</b> às licenças para tratar de interesses particulares em <b>usufruto</b>, sendo que os pedidos de prorrogação e os novos pedidos deverão observar as novas regras. <span style="font-style:italic">(regra de transição)</span></p>
+        <p class="art final"><b>Art. 3º</b> Esta Instrução Normativa entra em vigor em <span class="num" style="color:var(--ink-3)">xx/xx/xxxx</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NORMAS VIGENTES ===================== -->
+<section class="section" id="normas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker gold reveal"><span class="bar"></span>Normativo</div>
+      <h2 class="h-sec reveal d1">Normas vigentes <span class="lite">sobre a LIP</span></h2>
+      <p class="lead reveal d2">Lei, instruções normativas e competência de concessão.</p>
+    </div>
+    <div class="normas-grid">
+      <div class="norm-list">
+        <div class="norm reveal">
+          <div class="mark">§</div>
+          <div><div class="nm">Art. 91 da Lei nº 8.112, de 1990</div><div class="nd">Marco legal da Licença para tratar de Interesses Particulares no regime jurídico único.</div></div>
+        </div>
+        <div class="norm reveal d1">
+          <div class="mark">34</div>
+          <div><div class="nm">Instrução Normativa nº 34, de 24/03/2021</div><div class="nd">Dispõe sobre os procedimentos para concessão de licenças para acompanhamento de cônjuge ou companheiro, para atividade política e para tratar de interesse particular. <span class="em">Capítulo IV — Licença para Tratar de Interesses Particulares (arts. 12 a 18).</span></div></div>
+        </div>
+        <div class="norm gold reveal d2">
+          <div class="mark">75</div>
+          <div><div class="nm">Instrução Normativa nº 75, de 13/10/2022</div><div class="nd">Altera a IN nº 34, de 2021 — <b>revoga os §§ 3º e 5º do art. 13</b>, retirando as restrições temporais para a fruição da licença pelos servidores públicos.</div></div>
+        </div>
+        <div class="norm brick reveal d3">
+          <div class="mark">✓</div>
+          <div><div class="nm">Competência de concessão</div><div class="nd">A competência para a concessão é <span class="em">dos órgãos e entidades</span>.</div></div>
+        </div>
+      </div>
+      <div class="norm-feature reveal d2">
+        <div class="k">IN nº 75 · Principal inovação</div>
+        <div class="tt">Retirada da limitação temporal de <b>seis anos</b> para o usufruto da licença.</div>
+        <div class="nd">Em toda a vida funcional do servidor, a licença volta a ser concedida por <b>períodos de até três anos, prorrogáveis</b>, sem a limitação antes prevista.<br><br>Revoga, ainda, a necessidade de que a autorização seja concedida pelos <b>Ministros de Estado</b> para a fruição da licença por período superior a seis anos.</div>
+        <div class="ft"><span class="bar"></span><span>IN 75/2022 · MGI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ENCERRAMENTO ===================== -->
+<section class="thanks" id="obrigado">
+  <div class="lbl">CGMOP · DEPRO · SGP · MGI</div>
+  <h2>Obrigado<span class="ital">.</span></h2>
+  <p class="sub">Coordenação-Geral de Movimentação de Pessoal</p>
+  <div class="contact"><span>contato</span><span class="at">→</span><span>sgp.cgmop@economia.gov.br</span></div>
+</section>
+
+<!-- ===================== FONTES ===================== -->
+<section class="section fontes" id="fontes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker reveal"><span class="bar"></span>Anexo</div>
+      <h2 class="h-sec reveal d1">Fontes <span class="lite">&amp; referências</span></h2>
+      <p class="lead reveal d2">Bases de dados utilizadas na consolidação dos números.</p>
+    </div>
+    <div class="fontes-grid">
+      <div class="fonte-card dark reveal">
+        <div class="k">Fonte primária</div>
+        <div class="nm">Banco de Dados · Data Lake</div>
+        <div class="dd">Modelo dimensional consolidado utilizado para extração dos números apresentados.</div>
+        <ul>
+          <li>dimAfastamento</li><li>dimCargoEmprego</li><li>dimCorOrigemEtnica</li><li>dimNaturezaJuridica</li>
+          <li>dimOrgao</li><li>dimRegimeJuridico</li><li>dimSituacaoServidor</li><li>FatoServidor</li>
+          <li style="grid-column:1/-1">FatoServidorAfastamento</li>
+        </ul>
+        <div class="meta">Última LIP disponível no banco de dados: <b>15/09/2025</b></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:clamp(18px,2.4vw,30px)">
+        <div class="fonte-card reveal d1">
+          <div class="k">Remuneração</div>
+          <div class="nm">DW SIAPE</div>
+          <div class="dd">Remunerações — referência <b>maio de 2026</b>.</div>
+        </div>
+        <div class="fonte-card reveal d2">
+          <div class="k">Quantitativo de vagas</div>
+          <div class="nm">Repositório de Dados Abertos</div>
+          <div class="dd">Cargos vagos e vacâncias — arquivo aberto.</div>
+          <span class="url">https://repositorio.dados.gov.br/segrt/cargos%20vagos%20e%20vacancia/CargosVagosVacancias_202604.ods</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <span class="gold">LIP</span> · Licença para tratar de Interesse Particular · DGIMP / CGMOP / DEPRO / SGP / MGI
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- utilidades de formatação pt-BR ---------- */
+  function fmtInt(n){ return Math.round(n).toLocaleString('pt-BR'); }
+  function fmtDec(n, dec){ return n.toFixed(dec).replace('.', ','); }
+
+  /* ---------- animação dos contadores ---------- */
+  function animateCounter(el){
+    if(el.dataset.done) return;
+    el.dataset.done = "1";
+    var raw = (el.getAttribute('data-target') || '0').trim();
+    var isDec = raw.indexOf(',') !== -1;
+    var decimals = isDec ? (raw.split(',')[1] || '').length : 0;
+    var target = parseFloat(raw.replace(/\./g,'').replace(',', '.'));
+    var dur = 1500, t0 = null;
+
+    function step(ts){
+      if(t0 === null) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 4);            /* easeOutQuart */
+      var val = e * target;
+      el.textContent = isDec ? fmtDec(val, decimals) : fmtInt(val);
+      if(p < 1){ requestAnimationFrame(step); }
+      else { el.textContent = isDec ? fmtDec(target, decimals) : fmtInt(target); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- IntersectionObserver: reveals, counters, barras ---------- */
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting) return;
+      var t = en.target;
+      if(t.classList.contains('reveal')) t.classList.add('in');
+      if(t.classList.contains('obs'))    t.classList.add('in-view');
+      /* contadores dentro do alvo */
+      t.querySelectorAll && t.querySelectorAll('.counter').forEach(function(c){
+        if(prefersReduced){
+          var raw=(c.getAttribute('data-target')||'0').trim();
+          c.textContent = raw.indexOf(',')!==-1 ? raw : fmtInt(parseFloat(raw.replace(/\./g,'')));
+          c.dataset.done="1";
+        } else { animateCounter(c); }
+      });
+      io.unobserve(t);
+    });
+  }, { threshold:.18, rootMargin:'0px 0px -8% 0px' });
+
+  document.querySelectorAll('.reveal, .obs').forEach(function(el){ io.observe(el); });
+
+  /* contadores que não estão dentro de .reveal/.obs (ex.: barras dentro de painéis sem obs) */
+  document.querySelectorAll('.counter').forEach(function(c){
+    var host = c.closest('.reveal, .obs');
+    if(!host){
+      var solo = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ animateCounter(c); solo.unobserve(c); } });
+      }, {threshold:.4});
+      solo.observe(c);
+    }
+  });
+
+  /* ---------- barra de progresso + topbar + navegação ---------- */
+  var progress = document.getElementById('progressFill');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.sidenav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+
+  function onScroll(){
+    var h = document.documentElement;
+    var sc = h.scrollTop || document.body.scrollTop;
+    var max = (h.scrollHeight - h.clientHeight) || 1;
+    progress.style.width = (sc / max * 100) + '%';
+    topbar.classList.toggle('solid', sc > 60);
+
+    /* seção ativa */
+    var mid = sc + window.innerHeight * 0.35;
+    var idx = 0;
+    for(var i=0;i<sections.length;i++){
+      if(sections[i] && sections[i].offsetTop <= mid) idx = i;
+    }
+    navLinks.forEach(function(a,i){ a.classList.toggle('active', i===idx); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ============================================================
+     GRÁFICO DE LINHA — Afastamentos por ano
+     ============================================================ */
+  function buildLineChart(){
+    var host = document.getElementById('lineChart');
+    if(!host) return;
+    var years  = [2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+    var values = [726,733,823,856,904,972,1134,1413,1688,1142,1163,2021,1885,1365,1244,495];
+
+    var W=720, H=360, m={t:24,r:18,b:38,l:52};
+    var iw=W-m.l-m.r, ih=H-m.t-m.b;
+    var maxV=2200, minV=0;
+    var x=function(i){ return m.l + (i/(years.length-1))*iw; };
+    var y=function(v){ return m.t + ih - ((v-minV)/(maxV-minV))*ih; };
+
+    var ns="http://www.w3.org/2000/svg";
+    var svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.setAttribute('width','100%');
+    svg.style.maxWidth='100%';
+    svg.style.height='auto';
+
+    /* gradiente de preenchimento */
+    var defs=document.createElementNS(ns,'defs');
+    defs.innerHTML='<linearGradient id="blueGrad" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="#2B5FA8" stop-opacity="0.22"/>'+
+      '<stop offset="100%" stop-color="#2B5FA8" stop-opacity="0"/></linearGradient>';
+    svg.appendChild(defs);
+
+    /* gridlines + rótulos Y */
+    var ticks=[0,500,1000,1500,2000];
+    ticks.forEach(function(tk){
+      var ln=document.createElementNS(ns,'line');
+      ln.setAttribute('class','gridline');
+      ln.setAttribute('x1',m.l); ln.setAttribute('x2',W-m.r);
+      ln.setAttribute('y1',y(tk)); ln.setAttribute('y2',y(tk));
+      svg.appendChild(ln);
+      var tx=document.createElementNS(ns,'text');
+      tx.setAttribute('class','axis-txt');
+      tx.setAttribute('x',m.l-10); tx.setAttribute('y',y(tk)+4);
+      tx.setAttribute('text-anchor','end');
+      tx.textContent=tk.toLocaleString('pt-BR');
+      svg.appendChild(tx);
+    });
+
+    /* rótulos X */
+    years.forEach(function(yr,i){
+      if(i%2!==0 && i!==years.length-1) return;
+      var tx=document.createElementNS(ns,'text');
+      tx.setAttribute('class','axis-txt');
+      tx.setAttribute('x',x(i)); tx.setAttribute('y',H-12);
+      tx.setAttribute('text-anchor','middle');
+      tx.textContent="'"+String(yr).slice(2);
+      svg.appendChild(tx);
+    });
+
+    /* caminho da linha + área */
+    var d='', dArea='';
+    values.forEach(function(v,i){
+      d += (i===0?'M':'L') + x(i).toFixed(1) + ' ' + y(v).toFixed(1) + ' ';
+    });
+    dArea = d + 'L'+x(values.length-1).toFixed(1)+' '+y(0)+' L'+x(0).toFixed(1)+' '+y(0)+' Z';
+
+    var area=document.createElementNS(ns,'path');
+    area.setAttribute('class','line-fill');
+    area.setAttribute('d',dArea);
+    svg.appendChild(area);
+
+    var path=document.createElementNS(ns,'path');
+    path.setAttribute('class','line-path draw');
+    path.setAttribute('d',d);
+    svg.appendChild(path);
+
+    /* pontos + rótulos de destaque (pico e último) */
+    values.forEach(function(v,i){
+      var c=document.createElementNS(ns,'circle');
+      c.setAttribute('class','pt');
+      c.setAttribute('cx',x(i)); c.setAttribute('cy',y(v)); c.setAttribute('r',3.4);
+      svg.appendChild(c);
+      if(v===2021 || i===values.length-1 || v===1688){
+        var lb=document.createElementNS(ns,'text');
+        lb.setAttribute('class','pt-lbl');
+        lb.setAttribute('x',x(i));
+        lb.setAttribute('y',y(v)-12);
+        lb.setAttribute('text-anchor', i>years.length-3 ? 'end':'middle');
+        lb.textContent=v.toLocaleString('pt-BR');
+        svg.appendChild(lb);
+      }
+    });
+
+    host.appendChild(svg);
+
+    /* anima desenho + pontos quando entra na viewport */
+    var len=path.getTotalLength();
+    path.style.setProperty('--len', len);
+    var lineIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        if(prefersReduced){
+          path.style.strokeDashoffset='0';
+        } else {
+          requestAnimationFrame(function(){ path.classList.add('in'); });
+        }
+        setTimeout(function(){
+          area.classList.add('in');
+          svg.querySelectorAll('.pt, .pt-lbl').forEach(function(n){ n.classList.add('in'); });
+        }, prefersReduced?0:1400);
+        lineIO.unobserve(host);
+      });
+    }, {threshold:.3});
+    lineIO.observe(host);
+  }
+
+  /* ============================================================
+     GRÁFICO DE ÁREA EMPILHADA — Faixa etária
+     ============================================================ */
+  function buildAreaChart(){
+    var host=document.getElementById('areaChart');
+    if(!host) return;
+    var years=[2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+    var series=[
+      {name:'25 menos', color:'#74B07F', data:[6,17,16,26,14,7,16,14,10,4,2,6,1,1,1,1]},
+      {name:'25–29',    color:'#4F97C6', data:[63,85,102,86,85,90,111,115,113,55,55,90,50,22,8,2]},
+      {name:'30–34',    color:'#E29A4E', data:[80,127,187,186,235,254,254,318,359,226,227,359,261,132,74,30]},
+      {name:'35–39',    color:'#9AA3B2', data:[103,85,145,167,193,228,280,388,478,318,292,533,495,347,270,97]},
+      {name:'40–44',    color:'#E0BE4C', data:[95,101,104,125,100,132,170,246,290,238,269,482,480,365,376,141]},
+      {name:'45 ou mais',color:'#3A5577',data:[380,320,272,267,278,262,306,337,442,304,323,553,605,502,517,224]}
+    ];
+    var totals=years.map(function(_,i){ return series.reduce(function(s,se){return s+se.data[i];},0); });
+    var maxTot=Math.max.apply(null,totals); /* 2021 = 2022 maior */
+
+    var W=760,H=300,m={t:14,r:10,b:30,l:42};
+    var iw=W-m.l-m.r, ih=H-m.t-m.b;
+    var x=function(i){ return m.l+(i/(years.length-1))*iw; };
+    var y=function(v){ return m.t+ih-(v/maxTot)*ih; };
+
+    var ns="http://www.w3.org/2000/svg";
+    var svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.setAttribute('width','100%'); svg.style.height='auto';
+
+    /* gridlines */
+    [0,500,1000,1500,2000].forEach(function(tk){
+      var ln=document.createElementNS(ns,'line');
+      ln.setAttribute('class','gridline');
+      ln.setAttribute('x1',m.l);ln.setAttribute('x2',W-m.r);
+      ln.setAttribute('y1',y(tk));ln.setAttribute('y2',y(tk));
+      svg.appendChild(ln);
+      var tx=document.createElementNS(ns,'text');
+      tx.setAttribute('class','area-lbl');
+      tx.setAttribute('x',m.l-8);tx.setAttribute('y',y(tk)+3);
+      tx.setAttribute('text-anchor','end');
+      tx.textContent=(tk/1000?tk.toLocaleString('pt-BR'):'0');
+      svg.appendChild(tx);
+    });
+    /* rótulos X */
+    years.forEach(function(yr,i){
+      if(i%3!==0 && i!==years.length-1) return;
+      var tx=document.createElementNS(ns,'text');
+      tx.setAttribute('class','area-lbl');
+      tx.setAttribute('x',x(i));tx.setAttribute('y',H-10);
+      tx.setAttribute('text-anchor','middle');
+      tx.textContent=yr;
+      svg.appendChild(tx);
+    });
+
+    /* empilhamento (de baixo para cima) */
+    var cum=years.map(function(){return 0;});
+    series.forEach(function(se,si){
+      var top=[], bottom=[];
+      for(var i=0;i<years.length;i++){
+        bottom[i]=cum[i];
+        cum[i]+=se.data[i];
+        top[i]=cum[i];
+      }
+      var d='';
+      for(var i2=0;i2<years.length;i2++){ d+=(i2===0?'M':'L')+x(i2).toFixed(1)+' '+y(top[i2]).toFixed(1)+' '; }
+      for(var j=years.length-1;j>=0;j--){ d+='L'+x(j).toFixed(1)+' '+y(bottom[j]).toFixed(1)+' '; }
+      d+='Z';
+      var p=document.createElementNS(ns,'path');
+      p.setAttribute('class','area a'+(si+1));
+      p.setAttribute('d',d);
+      p.setAttribute('fill',se.color);
+      p.setAttribute('fill-opacity','0.9');
+      p.setAttribute('stroke','#FFFCF6');
+      p.setAttribute('stroke-width','0.6');
+      p.style.transitionDelay=(0.12*si)+'s';
+      svg.appendChild(p);
+    });
+
+    host.appendChild(svg);
+
+    var areaIO=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        svg.querySelectorAll('.area').forEach(function(a){ a.classList.add('in'); });
+        areaIO.unobserve(host);
+      });
+    }, {threshold:.25});
+    areaIO.observe(host);
+  }
+
+  /* inicializa após DOM pronto */
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ buildLineChart(); buildAreaChart(); });
+  } else { buildLineChart(); buildAreaChart(); }
+})();
+</script>
+</body>
+</html>
